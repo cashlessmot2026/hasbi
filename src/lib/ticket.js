@@ -12,6 +12,7 @@ const C = {
   line: '#E3D9C6', a1: '#F7A84B', a2: '#EE5A6F',
 };
 const TYPE_LABEL = { domicilio: 'Domicilio', recoger: 'Recoger en el local', mesa: 'En mesa' };
+export const PAY_LABEL = { efectivo: 'Efectivo', nequi: 'Nequi', daviplata: 'Daviplata', transferencia: 'Transferencia bancaria', tarjeta: 'Tarjeta (datáfono)' };
 
 function wrap(ctx, text, maxW) {
   const out = []; let line = '';
@@ -80,10 +81,13 @@ function paint(ctx, order, H) {
   // Datos del cliente
   const info = [
     ['Fecha', order.date_label],
-    ['Cliente', order.customer_name],
-    ...(order.customer_phone ? [['Teléfono', order.customer_phone]] : []),
+    ['Recibe', order.customer_name],
+    ['Teléfono', order.customer_phone],
     ['Entrega', TYPE_LABEL[order.order_type] || order.order_type],
-  ];
+    ['Pago', PAY_LABEL[order.payment_method] || order.payment_method],
+    ...(order.cash_with ? [['Paga con', `${money(order.cash_with)}  (vuelto ${money(order.cash_with - order.total)})`]] : []),
+    ...(order.latitude != null ? [['GPS', `${order.latitude.toFixed(5)}, ${order.longitude.toFixed(5)}`]] : []),
+  ].filter(([, v]) => v);
   for (const [k, v] of info) {
     if (draw) {
       ctx.fillStyle = C.mute; ctx.font = `400 16px ${FONT}`; ctx.fillText(k, L, y);

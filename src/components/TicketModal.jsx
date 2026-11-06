@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { IconWhatsApp, IconDownload, IconShare, IconClose } from './Icons.jsx';
+import { useI18n } from '../i18n/index.jsx';
 
 export default function TicketModal({ result, onClose }) {
   const { blob, waUrl, order } = result;
+  const { t } = useI18n();
   const url = useMemo(() => URL.createObjectURL(blob), [blob]);
   const file = useMemo(() => new File([blob], `ticket-${order.order_code}.png`, { type: 'image/png' }), [blob, order.order_code]);
   const canShareFile = typeof navigator !== 'undefined' && navigator.canShare?.({ files: [file] });
@@ -18,23 +20,22 @@ export default function TicketModal({ result, onClose }) {
   return (
     <div className="sheet-backdrop center" onClick={onClose}>
       <div className="ticket-modal" role="dialog" aria-label="Ticket del pedido" onClick={(e) => e.stopPropagation()}>
-        <button className="icon-btn ghost ticket-modal__close" onClick={onClose} aria-label="Cerrar"><IconClose /></button>
-        <h2>¡Pedido listo! 🎉</h2>
+        <button className="icon-btn ghost ticket-modal__close" onClick={onClose} aria-label={t('close')}><IconClose /></button>
+        <h2>{t('tk_title')}</h2>
         <p className="muted">
-          Se abrió WhatsApp con tu pedido precargado. Solo presiona <b>Enviar</b>.
-          {!order.ticket_url && ' Adjunta también la imagen del ticket.'}
+          {t('tk_text')}{!order.ticket_url && ` ${t('tk_attach')}`}
         </p>
         <div className="ticket-modal__img">
           <img src={url} alt={`Ticket del pedido ${order.order_code}`} />
         </div>
         <a className="btn-wa" href={waUrl} target="_blank" rel="noopener noreferrer">
-          <IconWhatsApp /> Abrir chat de WhatsApp
+          <IconWhatsApp /> {t('tk_openWa')}
         </a>
         <div className="ticket-modal__row">
           {canShareFile && (
-            <button className="btn-soft" onClick={shareImage}><IconShare width={18} /> Enviar imagen</button>
+            <button className="btn-soft" onClick={shareImage}><IconShare width={18} /> {t('tk_sendImg')}</button>
           )}
-          <button className="btn-soft" onClick={download}><IconDownload width={18} /> Descargar</button>
+          <button className="btn-soft" onClick={download}><IconDownload width={18} /> {t('tk_download')}</button>
         </div>
       </div>
     </div>

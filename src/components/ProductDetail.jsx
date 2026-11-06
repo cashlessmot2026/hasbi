@@ -3,8 +3,11 @@ import { money, imgUrl } from '../lib/format.js';
 import { useGyro } from '../lib/motion.js';
 import { IconBack, IconStar, IconShare, IconPlus, IconMinus, IconExpand } from './Icons.jsx';
 import Lightbox from './Lightbox.jsx';
+import { useI18n } from '../i18n/index.jsx';
 
-export default function ProductDetail({ product, fav, onFav, onAdd, onClose, pairings, onOpen }) {
+export default function ProductDetail({ product: raw, fav, onFav, onAdd, onClose, pairings, onOpen }) {
+  const { t, tp } = useI18n();
+  const product = tp(raw);
   const [qty, setQty] = useState(1);
   const [img, setImg] = useState(0);
   const [zoom, setZoom] = useState(false);
@@ -32,10 +35,10 @@ export default function ProductDetail({ product, fav, onFav, onAdd, onClose, pai
     <div className="detail" role="dialog" aria-label={product.name}>
       <div className="detail__scroll" ref={scrollRef}>
         <header className="detail__bar">
-          <button className="icon-btn" onClick={onClose} aria-label="Volver"><IconBack /></button>
+          <button className="icon-btn" onClick={onClose} aria-label={t('back')}><IconBack /></button>
           <div className="detail__actions">
-            <button className={`icon-btn ghost ${fav ? 'fav-on' : ''}`} onClick={() => onFav(product.id)} aria-label="Favorito"><IconStar /></button>
-            <button className="icon-btn ghost" onClick={share} aria-label="Compartir"><IconShare /></button>
+            <button className={`icon-btn ghost ${fav ? 'fav-on' : ''}`} onClick={() => onFav(raw.id)} aria-label={fav ? t('fav_remove') : t('fav_add')}><IconStar /></button>
+            <button className="icon-btn ghost" onClick={share} aria-label={t('share')}><IconShare /></button>
           </div>
         </header>
 
@@ -61,15 +64,15 @@ export default function ProductDetail({ product, fav, onFav, onAdd, onClose, pai
             <div className="big-price"><small>$</small>{whole.replace('$', '')}<sup>{cents || ''}</sup></div>
           </div>
           {product.tags?.length > 0 && (
-            <div className="tags">{product.tags.map((t) => <span key={t}>{t}</span>)}</div>
+            <div className="tags">{product.tags.map((g) => <span key={g}>{t(`tag_${g}`)}</span>)}</div>
           )}
           <p className="detail__desc">{product.description}</p>
 
           {pairings.length > 0 && (
             <>
-              <h4 className="section-title sm">Va perfecto con</h4>
+              <h4 className="section-title sm">{t('pairsWith')}</h4>
               <div className="mini-row">
-                {pairings.map((p) => (
+                {pairings.map(tp).map((p) => (
                   <button key={p.id} className="mini" onClick={() => onOpen(p)}>
                     <img src={imgUrl(p.images[0])} alt="" loading="lazy" />
                     <span>{p.name}</span>
@@ -84,12 +87,12 @@ export default function ProductDetail({ product, fav, onFav, onAdd, onClose, pai
 
       <footer className="detail__cta">
         <div className="stepper">
-          <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Menos"><IconMinus width={16} /></button>
+          <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="-"><IconMinus width={16} /></button>
           <span>{String(qty).padStart(2, '0')}</span>
-          <button onClick={() => setQty((q) => q + 1)} aria-label="Más"><IconPlus width={16} /></button>
+          <button onClick={() => setQty((q) => q + 1)} aria-label="+"><IconPlus width={16} /></button>
         </div>
-        <button className="btn-primary" onClick={(e) => { onAdd(product, e.currentTarget, qty); onClose(); }}>
-          Agregar · {money(product.price * qty)}
+        <button className="btn-primary" onClick={(e) => { onAdd(raw, e.currentTarget, qty); onClose(); }}>
+          {t('add')} · {money(product.price * qty)}
         </button>
       </footer>
 

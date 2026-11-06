@@ -439,3 +439,73 @@ input, textarea { font: inherit; }
 }
 .ticket-modal__row { display: flex; gap: 8px; margin-top: 10px; }
 .ticket-modal__row .btn-soft { flex: 1; }
+
+/* ---------- Idioma ---------- */
+.topbar__left { display: flex; align-items: center; gap: 8px; }
+.lang-btn {
+  height: 42px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; border-radius: 12px;
+  background: var(--card-2); font-size: 13px; transition: background 0.2s;
+}
+.lang-btn:hover { background: #393c5d; }
+.lang-btn b { font-weight: 600; }
+.sheet h2 svg { vertical-align: -3px; }
+.lang-list { list-style: none; margin: 14px 0 4px; padding: 0; display: grid; gap: 6px; }
+@media (min-width: 520px) { .lang-list { grid-template-columns: 1fr 1fr; } }
+.lang-list button {
+  width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px;
+  background: var(--card); border: 1px solid var(--line); text-align: start; transition: border-color 0.2s, background 0.2s;
+}
+.lang-list button:hover { background: var(--card-2); }
+.lang-list button.on { border-color: var(--a1); background: rgba(247, 168, 75, 0.1); color: var(--text); }
+.lang-list button.on svg { color: var(--a1); }
+.lang-list .flag { font-size: 22px; line-height: 1; }
+.lang-name { flex: 1; display: flex; flex-direction: column; font-weight: 500; }
+.lang-name small { color: var(--muted); font-size: 11px; font-weight: 400; }
+
+/* ---------- Checkout ---------- */
+.page-head { display: flex; align-items: center; gap: 12px; }
+.page-head .page-title { margin: 12px 0; }
+.btn-primary.sm { padding: 8px 12px; font-size: 13px; border-radius: 10px; box-shadow: none; white-space: nowrap; }
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; padding: 13px 22px; border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.22); color: var(--text); font-weight: 600; font-size: 15px; transition: background 0.2s;
+}
+.btn-outline:hover { background: rgba(255, 255, 255, 0.06); }
+.btn-outline.lg { padding: 15px 24px; font-size: 16px; }
+.btn-outline.block { width: 100%; }
+.gps__box {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px;
+  background: var(--card); border: 1px dashed rgba(255, 255, 255, 0.18);
+}
+.gps__box > svg { flex: none; color: var(--a1); }
+.gps--ok { border-style: solid; border-color: rgba(74, 222, 128, 0.5); }
+.gps--ok > svg { color: #4ade80; }
+.gps--denied, .gps--unavailable, .gps--unsupported { border-color: rgba(238, 90, 111, 0.6); }
+.gps__txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+.gps__txt b { font-weight: 600; }
+.gps__txt b.warn { color: #ffb3bd; font-weight: 500; }
+.gps__txt small { color: var(--muted); font-size: 12.5px; }
+.gps__txt a { color: var(--a1); font-size: 12px; text-decoration: none; }
+.field.has-error .gps__box, .field.has-error .pay-grid { outline: 1.5px solid var(--a2); outline-offset: 3px; border-radius: 14px; }
+.pay-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.pay {
+  display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 12px; background: var(--card);
+  border: 1.5px solid var(--line); font-size: 13.5px; font-weight: 500; text-align: start; transition: border-color 0.2s, background 0.2s;
+}
+.pay i { font-style: normal; font-size: 18px; }
+.pay.on { border-color: var(--a1); background: rgba(247, 168, 75, 0.1); }
+.field .hint { display: block; margin: 6px 0 0 4px; color: #4ade80; font-size: 12.5px; }
+.cart__total .btn-primary { gap: 8px; }
+
+/* ---------- RTL (árabe / libanés) ---------- */
+[dir='rtl'] .flip-rtl, [dir='rtl'] .detail__bar > .icon-btn svg { transform: scaleX(-1); }
+[dir='rtl'] .hero__img img { -webkit-mask-image: linear-gradient(270deg, #000 70%, transparent); mask-image: linear-gradient(270deg, #000 70%, transparent); }
+[dir='rtl'] .hero__txt { padding: 16px 0 16px 16px; }
+[dir='rtl'] .hero__dots { left: auto; right: 14px; }
+[dir='rtl'] .card__fav { right: auto; left: 8px; }
+[dir='rtl'] .card__tag { left: auto; right: 8px; }
+[dir='rtl'] .cart-bar b { margin-left: 0; margin-right: auto; }
+[dir='rtl'] .field span, [dir='rtl'] .field em { margin-left: 0; margin-right: 4px; }
+[dir='rtl'] .ios-hint span { float: left; }
+[dir='rtl'] .brand p { letter-spacing: 0; }
+[dir='rtl'] body { font-family: 'Poppins', 'Segoe UI', Tahoma, 'Noto Sans Arabic', sans-serif; }

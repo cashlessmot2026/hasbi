@@ -1,19 +1,22 @@
 import { money, imgUrl } from '../lib/format.js';
+import { useI18n } from '../i18n/index.jsx';
 import { IconPlus } from './Icons.jsx';
 
-/** Sugiere agregar algo más antes de cerrar el pedido. */
-export default function UpsellSheet({ suggestions, cartQty, onAdd, onContinue, onClose, busy }) {
+/** Paso 2: sugiere agregar algo más. El cliente puede rechazar con "No, gracias". */
+export default function UpsellSheet({ suggestions, cartQty, added, onAdd, onContinue, onClose }) {
+  const { t, tp } = useI18n();
   return (
-    <div className="sheet-backdrop" onClick={busy ? undefined : onClose}>
-      <div className="sheet" role="dialog" aria-label="¿Deseas agregar algo más?" onClick={(e) => e.stopPropagation()}>
+    <div className="sheet-backdrop" onClick={onClose}>
+      <div className="sheet" role="dialog" aria-label={t('up_title')} onClick={(e) => e.stopPropagation()}>
         <span className="sheet__grip" />
-        <h2>¿Le sumamos algo más? 😋</h2>
-        <p className="muted">Antes de terminar, estos acompañantes combinan perfecto con tu pedido.</p>
+        <h2>{t('up_title')}</h2>
+        <p className="muted">{t('up_text')}</p>
         <div className="upsell-grid">
-          {suggestions.map((p) => {
+          {suggestions.map((raw) => {
+            const p = tp(raw);
             const q = cartQty(p.id);
             return (
-              <button key={p.id} className={`upsell ${q ? 'added' : ''}`} onClick={(e) => onAdd(p, e.currentTarget)} disabled={busy}>
+              <button key={p.id} className={`upsell ${q ? 'added' : ''}`} onClick={(e) => onAdd(raw, e.currentTarget)}>
                 <img src={imgUrl(p.images[0])} alt="" loading="lazy" />
                 <span className="upsell__name">{p.name}</span>
                 <span className="upsell__foot">
@@ -24,11 +27,12 @@ export default function UpsellSheet({ suggestions, cartQty, onAdd, onContinue, o
             );
           })}
         </div>
-        <button className="btn-primary lg block" onClick={onContinue} disabled={busy}>
-          {busy ? <span className="spinner" /> : null}
-          {busy ? 'Generando tu ticket…' : 'Finalizar y enviar por WhatsApp'}
-        </button>
-        {!busy && <button className="btn-link" onClick={onClose}>Seguir viendo el menú</button>}
+        {added > 0 ? (
+          <button className="btn-primary lg block" onClick={onContinue}>{t('up_continue', { n: added })}</button>
+        ) : (
+          <button className="btn-outline lg block" onClick={onContinue}>{t('up_noThanks')}</button>
+        )}
+        <button className="btn-link" onClick={onClose}>{t('up_keep')}</button>
       </div>
     </div>
   );

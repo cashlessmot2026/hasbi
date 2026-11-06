@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { imgUrl } from '../lib/format.js';
 import { IconClose } from './Icons.jsx';
+import { useI18n } from '../i18n/index.jsx';
 
 /** Visor de imagen a pantalla completa: toque para hacer zoom, desliza para cambiar de foto. */
 export default function Lightbox({ images, start = 0, alt, onClose }) {
@@ -8,6 +9,7 @@ export default function Lightbox({ images, start = 0, alt, onClose }) {
   const [zoom, setZoom] = useState(false);
   const [origin, setOrigin] = useState('50% 50%');
   const touch = useRef(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     const k = (e) => {
@@ -32,7 +34,7 @@ export default function Lightbox({ images, start = 0, alt, onClose }) {
 
   return (
     <div className="lightbox" role="dialog" aria-label={alt} onClick={onClose}>
-      <button className="icon-btn lightbox__close" onClick={onClose} aria-label="Cerrar"><IconClose /></button>
+      <button className="icon-btn lightbox__close" onClick={onClose} aria-label={t('close')}><IconClose /></button>
       <div
         className="lightbox__stage"
         onClick={(e) => e.stopPropagation()}
@@ -62,7 +64,7 @@ export default function Lightbox({ images, start = 0, alt, onClose }) {
           ))}
         </div>
       )}
-      <p className="lightbox__hint">Toca la imagen para hacer zoom</p>
+      <p className="lightbox__hint">{t('zoomHint')}</p>
     </div>
   );
 }

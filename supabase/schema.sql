@@ -48,6 +48,23 @@ create table if not exists public.orders (
 );
 create index if not exists orders_created_idx on public.orders (created_at desc);
 
+-- v2: datos de entrega, GPS, pago e idioma
+alter table public.orders add column if not exists latitude          double precision;
+alter table public.orders add column if not exists longitude         double precision;
+alter table public.orders add column if not exists location_accuracy integer;
+alter table public.orders add column if not exists maps_url          text;
+alter table public.orders add column if not exists payment_method    text;
+alter table public.orders add column if not exists cash_with         integer;
+alter table public.orders add column if not exists language          text default 'es';
+alter table public.orders drop constraint if exists orders_payment_method_check;
+alter table public.orders add constraint orders_payment_method_check
+  check (payment_method is null or payment_method in ('efectivo','nequi','daviplata','transferencia','tarjeta'));
+comment on column public.orders.customer_name is 'Nombre de quien recibe el pedido';
+
+-- v2: traducciones { "en": {"name": "...", "description": "..."}, ... }
+alter table public.products   add column if not exists i18n jsonb not null default '{}'::jsonb;
+alter table public.categories add column if not exists i18n jsonb not null default '{}'::jsonb;
+
 -- ---------- updated_at automático ----------
 create or replace function public.set_updated_at() returns trigger
 language plpgsql set search_path = '' as $$
