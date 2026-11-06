@@ -15,6 +15,7 @@ export function buildMessage(order) {
   ];
   if (order.address) lines.push(`${order.order_type === 'mesa' ? '🪑 Mesa' : '🏠 Dirección'}: ${order.address}`);
   if (order.maps_url) lines.push(`📍 Ubicación GPS: ${order.maps_url}`);
+  else if (order.order_type === 'domicilio') lines.push('📍 Ubicación GPS: no compartida. Por favor envíame mi ubicación (pin) por este chat.');
   lines.push(`💳 Pago: ${PAY_LABEL[order.payment_method] || order.payment_method}`);
   if (order.cash_with) lines.push(`💵 Paga con ${money(order.cash_with)} · vuelto ${money(order.cash_with - order.total)}`);
   lines.push('', '*Detalle:*');

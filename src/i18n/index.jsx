@@ -40,7 +40,7 @@ export function I18nProvider({ children }) {
   }, [lang, meta.rtl]);
 
   const t = useCallback((key, vars) => {
-    let s = UI[lang]?.[key] ?? UI.es[key] ?? key;
+    let s = UI[lang]?.[key] ?? UI.en?.[key] ?? UI.es[key] ?? key;
     if (vars) for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v);
     return s;
   }, [lang]);
