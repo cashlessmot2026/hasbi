@@ -37,7 +37,7 @@ export const UI = {
     tk_attach: 'Adjunta también la imagen del ticket.', tk_openWa: 'Abrir chat de WhatsApp', tk_sendImg: 'Enviar imagen', tk_download: 'Descargar',
     fav_title: 'Favoritos', fav_emptyTitle: 'Aún no tienes favoritos', fav_emptyText: 'Toca la ⭐ en cualquier producto para guardarlo aquí.', explore: 'Explorar menú',
     ord_title: 'Mis pedidos', ord_emptyTitle: 'Sin pedidos todavía', ord_emptyText: 'Tus pedidos enviados por WhatsApp aparecerán aquí.',
-    makeOrder: 'Hacer un pedido', repeat: 'Repetir', resend: 'Reenviar', language: 'Idioma',
+    makeOrder: 'Hacer un pedido', repeat: 'Repetir', resend: 'Reenviar', ourLocations: 'Nuestras sedes', directions: 'Cómo llegar', call: 'Llamar', language: 'Idioma',
   },
   en: {
     tagline: 'Lebanese fast food', hello: 'Hello! 👋', install: 'Install app', searchPh: 'Search shawarma, falafel, hummus…',
@@ -76,7 +76,7 @@ export const UI = {
     tk_attach: 'Also attach the ticket image.', tk_openWa: 'Open WhatsApp chat', tk_sendImg: 'Send image', tk_download: 'Download',
     fav_title: 'Favorites', fav_emptyTitle: 'No favorites yet', fav_emptyText: 'Tap the ⭐ on any product to save it here.', explore: 'Explore menu',
     ord_title: 'My orders', ord_emptyTitle: 'No orders yet', ord_emptyText: 'Orders you send via WhatsApp will appear here.',
-    makeOrder: 'Place an order', repeat: 'Repeat', resend: 'Resend', language: 'Language',
+    makeOrder: 'Place an order', repeat: 'Repeat', resend: 'Resend', ourLocations: 'Our locations', directions: 'Get directions', call: 'Call', language: 'Language',
   },
   de: {
     tagline: 'Libanesisches Fast Food', hello: 'Hallo! 👋', install: 'App installieren', searchPh: 'Shawarma, Falafel, Hummus suchen…',
@@ -115,7 +115,7 @@ export const UI = {
     tk_attach: 'Hänge auch das Belegbild an.', tk_openWa: 'WhatsApp-Chat öffnen', tk_sendImg: 'Bild senden', tk_download: 'Herunterladen',
     fav_title: 'Favoriten', fav_emptyTitle: 'Noch keine Favoriten', fav_emptyText: 'Tippe bei einem Produkt auf ⭐, um es hier zu speichern.', explore: 'Speisekarte entdecken',
     ord_title: 'Meine Bestellungen', ord_emptyTitle: 'Noch keine Bestellungen', ord_emptyText: 'Deine per WhatsApp gesendeten Bestellungen erscheinen hier.',
-    makeOrder: 'Jetzt bestellen', repeat: 'Wiederholen', resend: 'Erneut senden', language: 'Sprache',
+    makeOrder: 'Jetzt bestellen', repeat: 'Wiederholen', resend: 'Erneut senden', ourLocations: 'Unsere Standorte', directions: 'Route planen', call: 'Anrufen', language: 'Sprache',
   },
   'pt-BR': {
     tagline: 'Comida rápida libanesa', hello: 'Olá! 👋', install: 'Instalar app', searchPh: 'Busque shawarma, falafel, homus…',
@@ -154,7 +154,7 @@ export const UI = {
     tk_attach: 'Anexe também a imagem do comprovante.', tk_openWa: 'Abrir conversa no WhatsApp', tk_sendImg: 'Enviar imagem', tk_download: 'Baixar',
     fav_title: 'Favoritos', fav_emptyTitle: 'Você ainda não tem favoritos', fav_emptyText: 'Toque na ⭐ de qualquer produto para salvá-lo aqui.', explore: 'Explorar cardápio',
     ord_title: 'Meus pedidos', ord_emptyTitle: 'Nenhum pedido ainda', ord_emptyText: 'Seus pedidos enviados pelo WhatsApp aparecerão aqui.',
-    makeOrder: 'Fazer um pedido', repeat: 'Repetir', resend: 'Reenviar', language: 'Idioma',
+    makeOrder: 'Fazer um pedido', repeat: 'Repetir', resend: 'Reenviar', ourLocations: 'Nossas unidades', directions: 'Como chegar', call: 'Ligar', language: 'Idioma',
   },
   it: {
     tagline: 'Cucina rapida libanese', hello: 'Ciao! 👋', install: 'Installa app', searchPh: 'Cerca shawarma, falafel, hummus…',
@@ -193,7 +193,7 @@ export const UI = {
     tk_attach: 'Allega anche l’immagine dello scontrino.', tk_openWa: 'Apri la chat WhatsApp', tk_sendImg: 'Invia immagine', tk_download: 'Scarica',
     fav_title: 'Preferiti', fav_emptyTitle: 'Nessun preferito', fav_emptyText: 'Tocca la ⭐ su un prodotto per salvarlo qui.', explore: 'Esplora il menù',
     ord_title: 'I miei ordini', ord_emptyTitle: 'Ancora nessun ordine', ord_emptyText: 'Gli ordini inviati tramite WhatsApp appariranno qui.',
-    makeOrder: 'Fai un ordine', repeat: 'Ripeti', resend: 'Reinvia', language: 'Lingua',
+    makeOrder: 'Fai un ordine', repeat: 'Ripeti', resend: 'Reinvia', ourLocations: 'Le nostre sedi', directions: 'Indicazioni', call: 'Chiama', language: 'Lingua',
   },
   'ar-LB': {
     tagline: 'أكل لبناني سريع', hello: 'أهلين! 👋', install: 'نزّل التطبيق', searchPh: 'دوّر على شاورما، فلافل، حمّص…',
@@ -232,7 +232,7 @@ export const UI = {
     tk_attach: 'بعات كمان صورة الفاتورة.', tk_openWa: 'افتح محادثة واتساب', tk_sendImg: 'بعات الصورة', tk_download: 'نزّل',
     fav_title: 'المفضّلة', fav_emptyTitle: 'لسّا ما عندك مفضّلة', fav_emptyText: 'كبوس عالـ ⭐ بأي صنف لتحفظو هون.', explore: 'تفرّج عالمنيو',
     ord_title: 'طلباتي', ord_emptyTitle: 'لسّا ما في طلبات', ord_emptyText: 'الطلبات يلّي بتبعتها عالواتساب بتطلع هون.',
-    makeOrder: 'اطلب هلّق', repeat: 'عيد الطلب', resend: 'ابعات مرّة تانية', language: 'اللغة',
+    makeOrder: 'اطلب هلّق', repeat: 'عيد الطلب', resend: 'ابعات مرّة تانية', ourLocations: 'فروعنا', directions: 'كيف توصل', call: 'اتّصل', language: 'اللغة',
   },
   ar: {
     tagline: 'مطبخ لبناني سريع', hello: 'مرحباً! 👋', install: 'تثبيت التطبيق', searchPh: 'ابحث عن شاورما، فلافل، حمص…',
@@ -271,7 +271,7 @@ export const UI = {
     tk_attach: 'أرفق أيضاً صورة الإيصال.', tk_openWa: 'فتح محادثة واتساب', tk_sendImg: 'إرسال الصورة', tk_download: 'تنزيل',
     fav_title: 'المفضلة', fav_emptyTitle: 'لا توجد مفضلات بعد', fav_emptyText: 'اضغط على ⭐ في أي منتج لحفظه هنا.', explore: 'تصفّح القائمة',
     ord_title: 'طلباتي', ord_emptyTitle: 'لا توجد طلبات بعد', ord_emptyText: 'ستظهر هنا طلباتك المرسلة عبر واتساب.',
-    makeOrder: 'اطلب الآن', repeat: 'تكرار', resend: 'إعادة الإرسال', language: 'اللغة',
+    makeOrder: 'اطلب الآن', repeat: 'تكرار', resend: 'إعادة الإرسال', ourLocations: 'فروعنا', directions: 'الاتجاهات', call: 'اتصال', language: 'اللغة',
   },
   ru: {
     tagline: 'Ливанский фастфуд', hello: 'Привет! 👋', install: 'Установить', searchPh: 'Ищите шаурму, фалафель, хумус…',
@@ -310,7 +310,7 @@ export const UI = {
     tk_attach: 'Также прикрепите изображение чека.', tk_openWa: 'Открыть чат WhatsApp', tk_sendImg: 'Отправить фото', tk_download: 'Скачать',
     fav_title: 'Избранное', fav_emptyTitle: 'В избранном пока пусто', fav_emptyText: 'Нажмите ⭐ на любом блюде, чтобы сохранить его здесь.', explore: 'Открыть меню',
     ord_title: 'Мои заказы', ord_emptyTitle: 'Заказов пока нет', ord_emptyText: 'Здесь появятся заказы, отправленные через WhatsApp.',
-    makeOrder: 'Сделать заказ', repeat: 'Повторить', resend: 'Отправить снова', language: 'Язык',
+    makeOrder: 'Сделать заказ', repeat: 'Повторить', resend: 'Отправить снова', ourLocations: 'Наши адреса', directions: 'Как добраться', call: 'Позвонить', language: 'Язык',
   },
   uk: {
     tagline: 'Ліванський фастфуд', hello: 'Привіт! 👋', install: 'Встановити', searchPh: 'Шукайте шаурму, фалафель, хумус…',
@@ -349,6 +349,6 @@ export const UI = {
     tk_attach: 'Також прикріпіть зображення чека.', tk_openWa: 'Відкрити чат WhatsApp', tk_sendImg: 'Надіслати фото', tk_download: 'Завантажити',
     fav_title: 'Обране', fav_emptyTitle: 'В обраному поки порожньо', fav_emptyText: 'Натисніть ⭐ на будь-якій страві, щоб зберегти її тут.', explore: 'Відкрити меню',
     ord_title: 'Мої замовлення', ord_emptyTitle: 'Замовлень поки немає', ord_emptyText: 'Тут з’являться замовлення, надіслані через WhatsApp.',
-    makeOrder: 'Зробити замовлення', repeat: 'Повторити', resend: 'Надіслати знову', language: 'Мова',
+    makeOrder: 'Зробити замовлення', repeat: 'Повторити', resend: 'Надіслати знову', ourLocations: 'Наші адреси', directions: 'Як дістатися', call: 'Зателефонувати', language: 'Мова',
   },
 };

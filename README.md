@@ -20,6 +20,13 @@ Menú digital instalable de **Hasbi – Cocina rápida libanesa**. El cliente ar
 - Ticket PNG dibujado en canvas, subido a Supabase Storage; su enlace va en el mensaje de WhatsApp
 - El pedido se guarda en la tabla `orders`
 
+## Panel de administración (oculto)
+- URL: **https://cashlessmot2026.github.io/hasbi/admin** (no hay ningún enlace a ella en el menú)
+- Clave inicial: `1234` — **cámbiala** en la sección *Clave* del panel.
+- Permite: crear/editar/ocultar/eliminar productos (varias imágenes, descripción, precio, categorías, etiquetas, destacado, sugerido, traducciones), categorías, banners de portada, ubicaciones/sedes (GPS, búsqueda por dirección y mapa), datos del negocio (WhatsApp que recibe pedidos, teléfono, horario) y ver los últimos pedidos.
+- Seguridad: la clave se valida en Supabase (funciones `admin_*`, hash bcrypt en `private.admin_auth`); tras 5 intentos fallidos se bloquea 15 minutos. Sin clave, el público solo puede leer el menú y crear pedidos.
+- SQL: `supabase/admin.sql` (ejecutar después de `schema.sql`).
+
 ## Desarrollo
 ```bash
 npm install

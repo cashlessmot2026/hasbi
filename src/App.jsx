@@ -31,7 +31,7 @@ const isStandalone = () => window.matchMedia?.('(display-mode: standalone)').mat
 
 export default function App() {
   const { t, tp, tc, lang, setLang, meta } = useI18n();
-  const [menu, setMenu] = useState({ categories: CATEGORIES, products: PRODUCTS, source: 'local' });
+  const [menu, setMenu] = useState({ categories: CATEGORIES, products: PRODUCTS, source: 'local', banners: [], locations: [] });
   const [view, setView] = useState('home'); // home | cart | checkout | orders | favs
   const [cat, setCat] = useState('all');
   const [query, setQuery] = useState('');
@@ -53,7 +53,19 @@ export default function App() {
   const [showIosHint, setShowIosHint] = useState(false);
   const cartBtn = useRef(null);
 
-  useEffect(() => { loadMenu().then(setMenu); }, []);
+  useEffect(() => {
+    loadMenu().then((m) => {
+      // Datos del negocio editables desde /admin (WhatsApp que recibe pedidos, nombre, eslogan)
+      if (m.settings) Object.assign(BUSINESS, {
+        name: m.settings.business_name || BUSINESS.name,
+        tagline: m.settings.tagline || BUSINESS.tagline,
+        whatsapp: m.settings.whatsapp || BUSINESS.whatsapp,
+        whatsappLabel: m.settings.phone_label || BUSINESS.whatsappLabel,
+        hours: m.settings.hours, instagram: m.settings.instagram,
+      });
+      setMenu(m);
+    });
+  }, []);
 
   useEffect(() => {
     const on = (e) => { e.preventDefault(); setInstallEvt(e); };
@@ -213,9 +225,11 @@ export default function App() {
               <>
                 <div className="brand">
                   <h1>{BUSINESS.name}</h1>
-                  <p>{t('tagline')}</p>
+                  <p>{lang === 'es' ? BUSINESS.tagline : t('tagline')}</p>
                 </div>
-                <Hero items={featured} onOpen={setDetail} />
+                {menu.banners?.length
+                  ? <Banners items={menu.banners} onOpen={(id) => byId[id] && setDetail(byId[id])} />
+                  : <Hero items={featured} onOpen={setDetail} />}
               </>
             )}
 
@@ -271,6 +285,28 @@ export default function App() {
                     ))}
                   </div>
                 ) : <p className="muted pad">{t('noResults', { q: query })}</p>}
+              </section>
+            )}
+
+            {menu.locations?.length > 0 && !q && (
+              <section className="cat-section">
+                <h2 className="section-title">📍 {t('ourLocations')}</h2>
+                <div className="locs">
+                  {menu.locations.map((l) => {
+                    const dest = l.latitude != null ? `${l.latitude},${l.longitude}` : encodeURIComponent([l.address, l.city].filter(Boolean).join(', '));
+                    return (
+                      <article key={l.id} className="loc">
+                        <b>{l.name}</b>
+                        {(l.address || l.city) && <span>{[l.address, l.city].filter(Boolean).join(', ')}</span>}
+                        {l.hours && <span className="muted">🕒 {l.hours}</span>}
+                        <div className="loc__btns">
+                          <a className="btn-soft sm" href={`https://www.google.com/maps/dir/?api=1&destination=${dest}`} target="_blank" rel="noopener noreferrer">🧭 {t('directions')}</a>
+                          {l.phone && <a className="btn-soft sm" href={`tel:${l.phone.replace(/[^\d+]/g, '')}`} dir="ltr">📞 {t('call')}</a>}
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
               </section>
             )}
 
@@ -393,6 +429,41 @@ export default function App() {
       )}
       {result && <TicketModal result={result} onClose={() => setResult(null)} />}
       {toast && <div className="toast" role="status">{toast}</div>}
+    </div>
+  );
+}
+
+// ---------- Banners configurables desde /admin ----------
+function Banners({ items, onOpen }) {
+  const [i, setI] = useState(0);
+  const ref = useMotion({ max: 4 });
+  const touch = useRef(null);
+  useEffect(() => {
+    if (items.length < 2) return;
+    const id = setInterval(() => setI((v) => (v + 1) % items.length), 5000);
+    return () => clearInterval(id);
+  }, [items.length]);
+  const b = items[i % items.length];
+  return (
+    <div ref={ref} className={`banner motion ${b.product_id ? 'clickable' : ''}`}
+      onClick={() => b.product_id && onOpen(b.product_id)}
+      onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        const dx = e.changedTouches[0].clientX - (touch.current ?? 0);
+        if (Math.abs(dx) > 50 && items.length > 1) setI((v) => (v + (dx < 0 ? 1 : -1) + items.length) % items.length);
+      }}>
+      <img key={b.id} src={imgUrl(b.image_url)} alt={b.title || ''} />
+      {(b.title || b.subtitle) && (
+        <div className="banner__txt" key={`t${b.id}`}>
+          {b.title && <h2>{b.title}</h2>}
+          {b.subtitle && <p>{b.subtitle}</p>}
+        </div>
+      )}
+      {items.length > 1 && (
+        <div className="hero__dots" onClick={(e) => e.stopPropagation()}>
+          {items.map((x, n) => <i key={x.id} className={n === i ? 'on' : ''} onClick={() => setI(n)} />)}
+        </div>
+      )}
     </div>
   );
 }

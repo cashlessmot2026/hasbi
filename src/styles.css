@@ -509,3 +509,29 @@ input, textarea { font: inherit; }
 [dir='rtl'] .ios-hint span { float: left; }
 [dir='rtl'] .brand p { letter-spacing: 0; }
 [dir='rtl'] body { font-family: 'Poppins', 'Segoe UI', Tahoma, 'Noto Sans Arabic', sans-serif; }
+
+/* ---------- Banners ---------- */
+.banner {
+  position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16 / 7; min-height: 170px; max-height: 340px; width: 100%;
+  background: var(--card); box-shadow: var(--shadow); border: 1px solid var(--line);
+}
+.banner.clickable { cursor: pointer; }
+.banner img {
+  width: 100%; height: 100%; object-fit: cover; animation: fadeIn 0.6s var(--ease);
+  transform: scale(1.06) translateY(calc(var(--p, 0) * 8px)); transition: transform 0.6s var(--ease);
+}
+.banner:hover img { transform: scale(1.12) translateY(calc(var(--p, 0) * 8px)); }
+.banner__txt {
+  position: absolute; inset: auto 0 0 0; padding: 40px 18px 26px; animation: slideIn 0.6s var(--ease);
+  background: linear-gradient(transparent, rgba(15, 16, 28, 0.88));
+}
+.banner__txt h2 { margin: 0; font-size: clamp(19px, 3.4vw, 32px); line-height: 1.15; }
+.banner__txt p { margin: 4px 0 0; color: #d5d6e6; font-size: 13.5px; }
+.banner .hero__dots { bottom: 10px; }
+.banner .hero__dots i { cursor: pointer; }
+
+/* ---------- Sedes ---------- */
+.locs { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.loc { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); font-size: 13.5px; }
+.loc b { font-size: 15px; }
+.loc__btns { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }

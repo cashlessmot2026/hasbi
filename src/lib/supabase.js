@@ -22,10 +22,18 @@ export async function loadMenu() {
     if (cats.error) throw cats.error;
     if (prods.error) throw prods.error;
     if (!cats.data?.length || !prods.data?.length) throw new Error('menú vacío');
-    return { categories: cats.data, products: prods.data, source: 'supabase' };
+    const [settings, banners, locations] = await withTimeout(Promise.all([
+      supabase.from('settings').select('*').eq('id', 1).maybeSingle(),
+      supabase.from('banners').select('*').order('sort'),
+      supabase.from('locations').select('*').order('sort'),
+    ]), 6000).catch(() => [{}, {}, {}]);
+    return {
+      categories: cats.data, products: prods.data, source: 'supabase',
+      settings: settings?.data || null, banners: banners?.data || [], locations: locations?.data || [],
+    };
   } catch (err) {
     console.warn('[Hasbi] Usando menú local:', err?.message || err);
-    return { categories: CATEGORIES, products: PRODUCTS, source: 'local' };
+    return { categories: CATEGORIES, products: PRODUCTS, source: 'local', settings: null, banners: [], locations: [] };
   }
 }
 

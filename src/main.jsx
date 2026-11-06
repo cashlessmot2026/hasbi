@@ -7,10 +7,20 @@ import './styles.css';
 
 registerSW({ immediate: true });
 
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <I18nProvider>
-      <App />
-    </I18nProvider>
-  </React.StrictMode>
-);
+const root = createRoot(document.getElementById('root'));
+const isAdmin = /\/admin\/?$/.test(location.pathname) || location.hash.startsWith('#/admin');
+
+if (isAdmin) {
+  // Panel oculto: solo se descarga al entrar a /admin
+  import('./admin/AdminApp.jsx').then(({ default: AdminApp }) =>
+    root.render(<React.StrictMode><AdminApp /></React.StrictMode>)
+  );
+} else {
+  root.render(
+    <React.StrictMode>
+      <I18nProvider>
+        <App />
+      </I18nProvider>
+    </React.StrictMode>
+  );
+}
